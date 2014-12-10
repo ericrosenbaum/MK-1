@@ -1,0 +1,208 @@
+div {
+  font-family: sans-serif;
+}
+
+ul { 
+  position: relative;
+  padding: 0;
+}
+
+ul li { 
+	position: relative; 
+	float: left; 
+	padding: 0;
+}
+
+.outlineBox {
+	border:2px solid #000000;
+	border-radius:7px;
+	margin: auto;
+	overflow: auto;
+	width: 720;
+	padding: 20;
+	position:relative;
+	box-shadow:2px 3px 2px 2px #cccccc;
+}
+
+.logo {
+	position:absolute;
+	top:0;
+	right:0;
+	margin:7px;
+}
+
+.titles {
+	margin-left: 72;
+	margin-bottom: 10;
+	color: rgb(221, 31, 31);
+}
+
+.title {
+	font-size: 35;
+	margin-right:45;
+	text-shadow: 2px 2px 2px rgb(184, 180, 180);
+	font-family: monospace;
+	display:inline;
+}
+
+.subtitle {
+	display:inline;
+}
+
+.piano {
+  cursor: pointer;
+  list-style-type: none;
+}
+
+.black {
+  margin: 0 0 0 -10px;
+  width: 20px;
+  height: 70px;
+  background: #000000;
+  z-index: 1000;
+  border-top: 2px solid #000000;
+  border-right: 2px solid #000000;
+  border-bottom: 2px solid #000000;
+}
+
+.black:active, .blackDown {
+	background: #999999;
+}
+
+.white {
+  width: 30px;
+  height: 120px;
+  background: #ffffff;
+  border-top: 2px solid #000000;
+  border-right: 2px solid #000000;
+  border-bottom: 2px solid #000000;
+}
+
+.white:active , .whiteDown {
+  background: #cccccc;
+}
+
+.black + .white {
+  margin-left: -12px;
+}
+
+ul li { 
+  border-radius: 0 0 7px 7px;
+}
+
+ul li:first-of-type {
+  border-left: 2px solid #000000;
+  border-radius: 10px 0 7px 7px;
+}
+
+ul li:last-of-type {
+  border-radius: 0 10px 7px 7px;
+}
+
+.keyLabel {
+	position: absolute; 
+	bottom: 0;
+	width:100%;
+	text-align:center;
+}
+
+.blackKeyLabel {
+	color:white;
+}
+
+.controls {
+	width: 718px;
+	height:150px;
+}
+
+.recControls {
+	height:100%;
+	float: left;
+	margin:2px;
+	padding:2px;
+}
+
+.recButton {
+	border-radius: 50%;
+	background:#bb0000;
+	width:45px;
+	height:45px;
+	border:2px solid black;
+	bottom: 0;
+	cursor:pointer;
+}
+
+.recButtonLabel {
+	color:white;
+	text-align:center;
+	line-height: 3.5;
+	font-size: 12;
+}
+
+.recButton:active, .recording {
+	background:#ff0000;
+	box-shadow: 0px;
+}
+
+.recStatus {
+	/*background:#dddddd;*/
+	color:gray;
+	font-size:10;
+	height:40px;
+	overflow:auto;
+	padding:2px;
+	width:60px;
+}
+
+.waveForm {
+	float:left;
+	border:2px solid black;
+	cursor:pointer;
+	position:relative;
+}
+
+.playHead {
+	position:absolute;
+	width:4px;
+	background:#00ff00;
+	top:0px;
+	height:100%;
+}
+
+input[type=radio] {
+	visibility: hidden;
+}
+
+.presetsBox {
+	float:left;
+	width:110px;
+}
+
+.presetTitle {
+	font-size:13px;
+	color:gray;
+	height:10px;
+	padding:3px;
+	margin-top:-2px;
+	margin-left:20px;
+	width:100px;
+}
+
+.presetButton {
+	margin:4px;
+}
+
+.presetButton label{
+	padding:2px;
+	background: #dddddd;
+	position:absolute;
+	width:100px;
+	color:black;
+	font-size:13px;
+	cursor:pointer;
+}
+
+.presetButton input[type=radio]:checked + label{
+	background: #dd0000;
+	color:white;
+}
