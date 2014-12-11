@@ -264,7 +264,7 @@ function startNote(num, pitch) {
 function draw() {
 
 	for (var i=0; i<playHeads.length; i++) {
-		// this is horrible hack because the p5 audio does not report the correct
+		// this is a horrible hack because the p5 audio does not report the correct
 		// times. this sort of works, but it drifts after a few loops
 		if (audioSamples[i].isPlaying()) {
 			timeSinceStart = (millis() / 1000) - playHeads[i].startTime;
@@ -356,7 +356,7 @@ function finishedRecording() {
 	analyzeNewSample();
 	recordingNow = false;
 	recBtn.removeClass('recording');
-
+	
 }
 
 function analyzeNewSample() {
