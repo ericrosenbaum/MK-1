@@ -91,6 +91,12 @@ function preload() {
     waveFormDiv.addClass('waveForm');
     waveFormDiv.parent(controlsDiv);
     
+    waveformInstructionLabel = createElement('div');
+    waveformInstructionLabel.parent(waveFormDiv);
+    waveformInstructionLabel.html('click waveform to set start time');
+    waveformInstructionLabel.addClass('notification');
+    waveformInstructionLabel.style('visibility', 'hidden'); 
+
 	canvas = createCanvas(numPeaks, 150);
 	canvas.parent(waveFormDiv);
 	canvas.mousePressed(setStartTimeClick);
@@ -219,9 +225,15 @@ function createPianoElements() {
 	  	pianoKeyElts[i].attribute('color', c);
   		pianoKeyElts[i].attribute("num", i);
   		
-  		pianoKeyElts[i].mousePressed(function(num){mouseIsPressedOnPianoKeyNum = num;}.bind(this,i));  		
+ // 		pianoKeyElts[i].mousePressed(function(num){mouseIsPressedOnPianoKeyNum = num;}.bind(this,i));  		
+ // 		pianoKeyElts[i].mouseReleased(function(){mouseIsPressedOnPianoKeyNum = -1;});  		
+  		pianoKeyElts[i].mousePressed(pianoKeyEltPressed.bind(this,i));  		
   		pianoKeyElts[i].mouseReleased(function(){mouseIsPressedOnPianoKeyNum = -1;});  		
   	}  	
+}
+
+function pianoKeyEltPressed(num) {
+	mouseIsPressedOnPianoKeyNum = num;
 }
 
 function setPianoLabels() {
@@ -356,7 +368,8 @@ function finishedRecording() {
 	analyzeNewSample();
 	recordingNow = false;
 	recBtn.removeClass('recording');
-	
+
+	waveformInstructionLabel.style('visibility', 'visible');
 }
 
 function analyzeNewSample() {

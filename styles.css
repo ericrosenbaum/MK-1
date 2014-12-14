@@ -206,3 +206,12 @@ input[type=radio] {
 	background: #dd0000;
 	color:white;
 }
+
+.notification {
+	position:absolute;
+	font-size:13px;
+	color:gray;
+	width: 380;
+	text-align: right;
+	padding-top: 5px;
+}
