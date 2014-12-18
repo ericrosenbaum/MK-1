@@ -301,12 +301,19 @@ function draw() {
 		partDone =  (millis() - recStartTime) / (recordingDuration * 1000);
 		barLength = partDone * numPeaks;
 		level = mic.getLevel(.5);
-		level = map(level, 0, 1, 0, 1000);
-		level = constrain(level,0,90);
-		colorMode(HSB, 100)
-		fill(0,level+10,100);
+
+		colorMode(HSB, 100);
+		hue = level *1000;
+		hue = constrain(hue, 0,100);
+		hue = map(hue,0,100,0,20);
+		fill(hue,100,80);
 		noStroke();
-		rect(0,0,barLength,waveBox.h);
+
+		// need to set width of each rect using calculated times?
+		//rect(0,0,barLength,waveBox.h);
+		barHeight = map(level, 0, 1, 0, waveBox.h);
+		rect(barLength-5,waveBox.h/2, 8, barHeight);
+		rect(barLength-5,waveBox.h/2, 8,-1*barHeight);
 	}
 	
 	if (mic.enabled) {
@@ -326,6 +333,11 @@ function drawWaveForm() {
     stroke(0);
     for (var i=0; i<numPeaks; i++) {
 		val = peaks[i] * waveBox.h/2;
+		
+		colorMode(HSB, 100);
+		hue = peaks[i] * 20;
+		stroke(hue,100,80);
+
 		line(waveBox.x + i, middle + val, waveBox.x +  i, middle - val);
 	}
 	
@@ -361,6 +373,11 @@ function startRecording() {
 		    recordingNow = true;
 		    recStartTime = millis();
 		    recBtn.addClass('recording');
+		    
+		    // blank out the waveform box
+		    fill(255);
+			noStroke();
+			rect(waveBox.x, waveBox.y, waveBox.w, waveBox.h);
 	  	}
 }
 
