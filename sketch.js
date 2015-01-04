@@ -7,8 +7,10 @@ function preload() {
 		{name:'major (low)', pitches:[48, 50, 52, 53, 55, 57, 59, 60, 62, 64, 65]},
 		{name:'minor pentatonic', pitches:[48, 51, 53, 55, 58, 60, 63, 65, 67, 70, 72]},
 		{name:'major pentatonic', pitches:[48, 50, 52, 55, 57, 60, 62, 64, 67, 69, 72]},
-		{name:'whole tone', pitches:[48, 50, 52, 54, 56, 58, 60, 62, 64, 66, 68]},
+		//{name:'whole tone', pitches:[48, 50, 52, 54, 56, 58, 60, 62, 64, 66, 68]},
 		{name:'major triads', pitches:[48, 52, 55, 60, 64, 67, 72, 76, 79, 83, 84]},
+		{name:'randomize!', pitches:[60, 62, 64, 65, 67, 69, 71, 72, 74, 76, 77]},
+
 	];
 	
 	samplePresets = [
@@ -16,8 +18,9 @@ function preload() {
 		{name:'whistle', filename:'whistle'},
 		{name:'splurt', filename:'splurt'},
 		{name:'ooh', filename:'ooh'},
-		{name:'mouth rhythm', filename:'mouth-rhythm'}, 
-		{name:'acoustic bass', filename:'acoustic-bass'} 
+		//{name:'mouth rhythm', filename:'mouth-rhythm'}, 
+		{name:'acoustic bass', filename:'acoustic-bass'}, 
+		{name:'kalimba', filename:'kalimba'}, 
 	];
 	
 	keySymbols = ['\u2190', '\u2191','\u2193','\u2192','sp'];
@@ -159,7 +162,23 @@ function createPresetButton(name, index, group, pressFunction) {
 
 
 function setKeyPreset(index) {
-	createKeyObjects(pitchPresets[index].pitches);
+	if (pitchPresets[index].name === "randomize!") {
+		allPitches = [];
+		randomPitches = [];
+		for (var i=48; i<=84; i++) {
+			allPitches.push(i);
+		}
+		for (var i=0; i<keyList.length; i++) {
+			index = Math.round(random(0,allPitches.length-1));
+			newPitch = allPitches[index];
+			allPitches.splice(index,1);
+			randomPitches.push(newPitch);
+		}
+		createKeyObjects(randomPitches);
+	} else {
+		createKeyObjects(pitchPresets[index].pitches);
+	}
+
 	setPianoLabels();
 }
 
