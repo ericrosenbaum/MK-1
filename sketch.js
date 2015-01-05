@@ -289,6 +289,7 @@ function setup() {
 function startNote(num, pitch) {
 	audioSamples[num].rate(ratioForPitch(pitch));
 	audioSamples[num].loop(undefined, 1.0, startTimeSec, recordingDuration);
+	audioSamples[num].setVolume(1);
 	playHeads[num].startTime = millis() / 1000;
 }
 
@@ -306,10 +307,11 @@ function draw() {
 			playHeads[i].style('left', xPos);
 			playHeads[i].style('visibility', 'visible');
 			level = audioSamples[i].getLevel(0.5);
+			if (level < 0.001 && !keyObjects[i].isPressed) {
+				audioSamples[i].stop();
+			}
 			level = map(level,0,1,1,20);
 			playHeads[i].style('width',level);
-			
-
 		} else {
 			playHeads[i].style('left', 0);
 			playHeads[i].style('visibility', 'hidden');
@@ -480,7 +482,9 @@ function keyPressed() {
 function keyReleased() {
 	for (var i = 0; i < keyObjects.length; i++) {
 		if (key == keyObjects[i].keyName || keyCode == keyObjects[i].keyName) {
-			audioSamples[i].stop();
+			//audioSamples[i].stop();
+			decayTime = 0.5 / keyObjects[i].rate;
+			audioSamples[i].setVolume(0, decayTime);
 			keyObjects[i].isPressed = false;
 			setPianoKeyState(keyObjects[i].pianoKeyNum, false, '');
 		}
