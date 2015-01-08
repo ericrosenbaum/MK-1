@@ -35,7 +35,7 @@ function preload() {
 	
 	audioSamples = [];
 	audioSamples[0] = loadSound('sounds/vibraphone.wav');
-			
+
 	numPeaks = 390;	
 	
 	mouseIsPressedOnPianoKeyNum = -1;
@@ -112,13 +112,17 @@ function preload() {
 	createKeyObjects(pitchPresets[0].pitches);
 	setPianoLabels();
 	createPlayHeads();
+
+	initSampler();
 }
 
-function loadDefaultSamples() {
-	for (var i=1; i<keyList.length; i++) {
-		audioSamples[i] =  jQuery.extend(true, {}, audioSamples[0]);
+// create empty soundFiles objects that will be filled with a buffer later
+function initSampler() {
+	for (var i=1; i<keyObjects.length; i++) {
+		audioSamples[i] = new p5.SoundFile();
 	}
 }
+
 
 function createPresetButtons(headingTitle, presetList, pressFunction) {
     presetsBox = createElement('div');
@@ -183,7 +187,6 @@ function setKeyPreset(index) {
 }
 
 function loadSamplePreset(index) {
-	//audioSamples = [];
 	audioSamples[0] = samplePresetAudio[index];
 	analyzeNewSample();
 }
@@ -414,7 +417,7 @@ function analyzeNewSample() {
 	peaks = audioSamples[0].getPeaks(numPeaks);
 	
 	for (var i=1; i<keyObjects.length; i++) {
-		audioSamples[i] =  jQuery.extend(true, {}, audioSamples[0]);
+		audioSamples[i].buffer = audioSamples[0].buffer;
 	}
 	
 	setStartTimeAt(0);
