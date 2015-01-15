@@ -10,8 +10,9 @@ function preload() {
 		//{name:'whole tone', pitches:[48, 50, 52, 54, 56, 58, 60, 62, 64, 66, 68]},
 		{name:'major triads', pitches:[48, 52, 55, 60, 64, 67, 72, 76, 79, 83, 84]},
 		{name:'randomize!', pitches:[60, 62, 64, 65, 67, 69, 71, 72, 74, 76, 77]},
-
 	];
+	
+	majorScaleThreeOctaves = [48, 50, 52, 53, 55, 57, 59, 60, 62, 64, 65, 67, 69, 71, 72, 74, 76, 77, 79, 81, 83, 84];
 	
 	samplePresets = [
 		{name:'vibraphone', filename:'vibraphone'},
@@ -167,11 +168,8 @@ function createPresetButton(name, index, group, pressFunction) {
 
 function setKeyPreset(index) {
 	if (pitchPresets[index].name === "randomize!") {
-		allPitches = [];
 		randomPitches = [];
-		for (var i=48; i<=84; i++) {
-			allPitches.push(i);
-		}
+		allPitches = majorScaleThreeOctaves.slice();
 		for (var i=0; i<keyList.length; i++) {
 			index = Math.round(random(0,allPitches.length-1));
 			newPitch = allPitches[index];
