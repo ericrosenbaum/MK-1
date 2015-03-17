@@ -253,8 +253,10 @@ function createPianoElements() {
 	  	pianoKeyElts[i].attribute('color', c);
   		pianoKeyElts[i].attribute("num", i);
   		
-  		pianoKeyElts[i].mousePressed(pianoKeyEltPressed.bind(this,i));  		
+  		pianoKeyElts[i].mousePressed(pianoKeyEltPressed.bind(this,i)); 
   		pianoKeyElts[i].mouseReleased(pianoKeyEltReleased.bind(this,i));  		
+ 		// using mouseOut is a hack because we have no releaseOutside function
+  		pianoKeyElts[i].mouseOut(pianoKeyEltReleased.bind(this,i));  		
   	}  	
 }
 
@@ -265,7 +267,7 @@ function pianoKeyEltPressed(num) {
 }
 function pianoKeyEltReleased(num) {
 	mouseIsPressedOnPianoKeyNum = -1;
-	decayTime = 1.0;
+	decayTime = 0.5;
 	audioSamples[0].setVolume(0, decayTime);
 	audioSamples[0].stop(decayTime);
 	setPianoKeyState(num, false, '');
