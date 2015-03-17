@@ -12,7 +12,7 @@ function preload() {
 		{name:'randomize!', pitches:[60, 62, 64, 65, 67, 69, 71, 72, 74, 76, 77]},
 	];
 	
-	majorScaleThreeOctaves = [48, 50, 52, 53, 55, 57, 59, 60, 62, 64, 65, 67, 69, 71, 72, 74, 76, 77, 79, 81, 83, 84];
+	majorScale = [60, 62, 64, 65, 67, 69, 71, 72, 74, 76, 77];
 	
 	samplePresets = [
 		{name:'vibraphone', filename:'vibraphone'},
@@ -177,7 +177,7 @@ function createPresetButton(name, index, group, pressFunction) {
 function setKeyPreset(index) {
 	if (pitchPresets[index].name === "randomize!") {
 		randomPitches = [];
-		allPitches = majorScaleThreeOctaves.slice();
+		allPitches = majorScale.slice();
 		for (var i=0; i<keyList.length; i++) {
 			index = Math.round(random(0,allPitches.length-1));
 			newPitch = allPitches[index];
