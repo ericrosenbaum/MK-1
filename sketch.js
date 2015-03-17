@@ -41,12 +41,12 @@ function preload() {
 	
 	mouseIsPressedOnPianoKeyNum = -1;
 	
-//	container = createElement('div');
-//	container.addClass('container');
+	container = createElement('div');
+	container.addClass('container');
 	
 	outlineDiv = createElement('div');
 	outlineDiv.addClass('outlineBox');
-	//outlineDiv.parent(container);
+	outlineDiv.parent(container);
 	
 	titlesDiv = createElement('div');
 	titlesDiv.addClass('titles');
@@ -105,10 +105,21 @@ function preload() {
     waveformInstructionLabel.addClass('notification');
     waveformInstructionLabel.style('visibility', 'hidden'); 
     
-//    helpBtn = createElement('div');
-//    helpBtn.addClass('circleButton');
-//    helpBtn.mousePressed(toggleHelp);
-
+	helpBoxes = createHelpBoxes();
+	helpBoxesShowing = false;
+	
+	helpBtn = createElement('div');
+    helpBtn.parent(container);
+    helpBtn.addClass('circleButton');
+    helpBtn.addClass('helpButton');
+    helpBtn.mousePressed(toggleHelpBoxes);
+    
+    helpBtnLabel = createElement('div');
+    helpBtnLabel.parent(helpBtn);
+    helpBtnLabel.html('?');
+    helpBtnLabel.addClass('buttonLabel');
+    helpBtnLabel.addClass('helpButtonLabel');
+    
 	canvas = createCanvas(numPeaks, 150);
 	canvas.parent(waveFormDiv);
 	canvas.mousePressed(setStartTimeClick);
@@ -302,6 +313,8 @@ function setup() {
 
   	waveBox = {x:0, y:0, w:numPeaks, h:150 };
 	analyzeNewSample();
+	
+	showHelpBoxes();
 }
 
 function startNote(num, pitch) {
@@ -521,5 +534,91 @@ function setPianoKeyState(num, state, color) {
 		} else {
 			pianoKeyElts[num].style('background', '#ffffff');
 		}
+	}
+}
+
+function createHelpBoxes() {    
+	boxes = [];
+
+	b = createHelpBox(50, -185, 
+		'Record your own sound to play on the keys!',
+		'Be sure to allow microphone access. Say your name, make a mouth noise, ' + 
+    	'play an instrument, sample your favorite song... or just burp');
+	boxes.push(b);  
+	
+	b = createHelpBox(250, -190, 
+		'Play sounds', 
+		'Use your Makey Makey, use your computer keyboard, or click these keys');
+	boxes.push(b);  
+	
+	b = createHelpBox(110, 300, 
+		'Play different notes', 
+		'Choose a keymap here');
+	boxes.push(b);  
+	
+	b = createHelpBox(160, 760, 
+		'Try different samples', 
+		'Choose a sample here',
+		true);
+	boxes.push(b);  
+
+	b = createHelpBox(250, 770, 
+		'Change individual keys', 
+		'Click and hold the mouse on a piano key and press a keyboard key at the same time. ' +
+		'For example, click and hold the right-most key on the piano, and press the up arrow on your keyboard. ' +
+		'Now, pressing up will play that high note.',
+		true);
+	boxes.push(b);  
+
+	return boxes;     
+}
+
+function createHelpBox(top, left, heading, body, flip) {
+    box = createElement('div');
+    box.addClass('arrow_box');    
+    box.parent(container);
+    box.style('top:'+ top + 'px; left:' + left + 'px;');
+    
+    if (flip) {
+    	box.addClass('arrow_box_right');
+    }
+    
+    headingText = createElement('div');
+    headingText.addClass('helpHeading');
+	headingText.html(heading);
+	headingText.parent(box);
+
+    bodyText = createElement('div');
+    bodyText.addClass('helpBody');
+	bodyText.html(body);
+	bodyText.parent(box);
+	
+	box.mousePressed(hideHelpBoxes);
+	
+	return box;
+}
+
+function toggleHelpBoxes() {
+	if (helpBoxesShowing) {
+		hideHelpBoxes();
+	}
+	else {
+		showHelpBoxes();
+	}
+}
+
+function showHelpBoxes() {
+	helpBoxesShowing = true;
+	for (var i=0; i < helpBoxes.length; i++) {
+		helpBoxes[i].style('opacity: 1; ' + 
+		  'opacity 0.25s linear;');
+	}
+}
+
+function hideHelpBoxes() {
+	helpBoxesShowing = false;
+	for (var i=0; i < helpBoxes.length; i++) {
+		helpBoxes[i].style('opacity: 0; ' + 
+		  'transition: visibility 0s 0.25s, opacity 0.25s linear;');
 	}
 }

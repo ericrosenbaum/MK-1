@@ -15,10 +15,10 @@ ul li {
 
 .container {
 	margin: auto;
-	overflow: auto;
 	padding: 25;
 	width: 740;
 	position:relative;	
+	
 }
 
 .outlineBox {
@@ -147,6 +147,20 @@ ul li:last-of-type {
 	font-size: 12;
 }
 
+.helpButton {
+  background: rgb(255, 238, 170);
+  position: absolute;
+  right: -75;
+  top: 20;
+}
+
+.helpButtonLabel {
+	color: rgb(89, 86, 86);
+	font-size:24;
+	font-weight:bold;
+	line-height:2;
+}
+
 .recButton:active, .recording {
 	background:#ff0000;
 	box-shadow: 0px;
@@ -222,4 +236,58 @@ input[type=radio] {
 	width: 380;
 	text-align: right;
 	padding-top: 5px;
+}
+
+.arrow_box {
+  position: absolute;
+  background: #FFEEAA;
+  border: 0px solid #FFEEAA;
+  width: 200px;
+  padding: 10px;
+  box-shadow: 1px 1px 3px 1px rgba(220,220,220,250);
+  line-height: 1.15;
+}
+
+
+.arrow_box:after, .arrow_box:before {
+  left: 100%;
+  top: 50%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
+.arrow_box:after {
+  border-color: rgba(255, 255, 255, 0);
+  border-left-color: #FFEEAA;
+  border-width: 10px;
+  margin-top: -10px;
+}
+
+.arrow_box:before {
+  border-color: rgba(0, 0, 0, 0);
+  border-left-color: #FFEEAA;
+  border-width: 13px;
+  margin-top: -13px;
+}
+
+.arrow_box_right:before, .arrow_box_right:after {
+	border-right-color: #FFEEAA;
+	border-left-color: rgba(255, 255, 255, 0);
+	left: -20px;
+}
+
+
+.helpHeading {
+  font-size: 16px;
+  color: #3D3838;
+  font-weight: bold;
+}
+
+.helpBody {
+  font-size: 14px;
+  color: #595656;
 }
