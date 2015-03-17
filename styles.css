@@ -13,15 +13,23 @@ ul li {
 	padding: 0;
 }
 
+.container {
+	margin: auto;
+	overflow: auto;
+	padding: 25;
+	width: 740;
+	position:relative;	
+}
+
 .outlineBox {
 	border:2px solid #000000;
 	border-radius:7px;
-	margin: auto;
-	overflow: auto;
-	width: 720;
-	padding: 20;
-	position:relative;
 	box-shadow:2px 3px 2px 2px #cccccc;
+	overflow:auto;
+	width:720;
+	padding: 20;
+	margin:auto;
+	position:relative;
 }
 
 .logo {
@@ -122,7 +130,7 @@ ul li:last-of-type {
 	padding:2px;
 }
 
-.recButton {
+.circleButton {
 	border-radius: 50%;
 	background:#bb0000;
 	width:45px;
@@ -132,7 +140,7 @@ ul li:last-of-type {
 	cursor:pointer;
 }
 
-.recButtonLabel {
+.buttonLabel {
 	color:white;
 	text-align:center;
 	line-height: 3.5;

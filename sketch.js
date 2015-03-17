@@ -41,8 +41,12 @@ function preload() {
 	
 	mouseIsPressedOnPianoKeyNum = -1;
 	
+//	container = createElement('div');
+//	container.addClass('container');
+	
 	outlineDiv = createElement('div');
 	outlineDiv.addClass('outlineBox');
+	//outlineDiv.parent(container);
 	
 	titlesDiv = createElement('div');
 	titlesDiv.addClass('titles');
@@ -76,13 +80,13 @@ function preload() {
     
     recBtn = createElement('div');
     recBtn.parent(recControls);
-    recBtn.addClass('recButton');
+    recBtn.addClass('circleButton');
     recBtn.mousePressed(startRecording);
     
     recBtnLabel = createElement('div');
     recBtnLabel.parent(recBtn);
     recBtnLabel.html('REC');
-    recBtnLabel.addClass('recButtonLabel');
+    recBtnLabel.addClass('buttonLabel');
     
     recStatus = createElement('div');
     recStatus.parent(recControls);
@@ -100,6 +104,10 @@ function preload() {
     waveformInstructionLabel.html('click waveform to set start time');
     waveformInstructionLabel.addClass('notification');
     waveformInstructionLabel.style('visibility', 'hidden'); 
+    
+//    helpBtn = createElement('div');
+//    helpBtn.addClass('circleButton');
+//    helpBtn.mousePressed(toggleHelp);
 
 	canvas = createCanvas(numPeaks, 150);
 	canvas.parent(waveFormDiv);
@@ -245,15 +253,22 @@ function createPianoElements() {
 	  	pianoKeyElts[i].attribute('color', c);
   		pianoKeyElts[i].attribute("num", i);
   		
- // 		pianoKeyElts[i].mousePressed(function(num){mouseIsPressedOnPianoKeyNum = num;}.bind(this,i));  		
- // 		pianoKeyElts[i].mouseReleased(function(){mouseIsPressedOnPianoKeyNum = -1;});  		
   		pianoKeyElts[i].mousePressed(pianoKeyEltPressed.bind(this,i));  		
-  		pianoKeyElts[i].mouseReleased(function(){mouseIsPressedOnPianoKeyNum = -1;});  		
+  		pianoKeyElts[i].mouseReleased(pianoKeyEltReleased.bind(this,i));  		
   	}  	
 }
 
 function pianoKeyEltPressed(num) {
 	mouseIsPressedOnPianoKeyNum = num;
+	startNote(0, num+48);
+	setPianoKeyState(num, true, keyObjects[0].color.colorString);
+}
+function pianoKeyEltReleased(num) {
+	mouseIsPressedOnPianoKeyNum = -1;
+	decayTime = 1.0;
+	audioSamples[0].setVolume(0, decayTime);
+	audioSamples[0].stop(decayTime);
+	setPianoKeyState(num, false, '');
 }
 
 function setPianoLabels() {
@@ -288,8 +303,7 @@ function setup() {
 }
 
 function startNote(num, pitch) {
-	audioSamples[num].rate(ratioForPitch(pitch));
-	audioSamples[num].loop(undefined, 1.0, startTimeSec, recordingDuration);
+	audioSamples[num].loop(0, ratioForPitch(pitch), 1.0, startTimeSec, recordingDuration);
 	audioSamples[num].setVolume(1);
 	playHeads[num].startTime = millis() / 1000;
 }
@@ -308,9 +322,6 @@ function draw() {
 			playHeads[i].style('left', xPos);
 			playHeads[i].style('visibility', 'visible');
 			level = audioSamples[i].getLevel(0.5);
-			if (level < 0.001 && !keyObjects[i].isPressed) {
-				audioSamples[i].stop();
-			}
 			level = map(level,0,1,1,20);
 			playHeads[i].style('width',level);
 		} else {
@@ -483,9 +494,9 @@ function keyPressed() {
 function keyReleased() {
 	for (var i = 0; i < keyObjects.length; i++) {
 		if (key == keyObjects[i].keyName || keyCode == keyObjects[i].keyName) {
-			//audioSamples[i].stop();
 			decayTime = 0.5 / keyObjects[i].rate;
 			audioSamples[i].setVolume(0, decayTime);
+			audioSamples[i].stop(decayTime);
 			keyObjects[i].isPressed = false;
 			setPianoKeyState(keyObjects[i].pianoKeyNum, false, '');
 		}
