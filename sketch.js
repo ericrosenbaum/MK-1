@@ -16,6 +16,7 @@ function preload() {
 	
 	samplePresets = [
 		{name:'vibraphone', filename:'vibraphone'},
+		//{name:'piano', filename:'piano_C3'},
 		{name:'whistle', filename:'whistle'},
 		{name:'splurt', filename:'splurt'},
 		{name:'ooh', filename:'ooh'},
