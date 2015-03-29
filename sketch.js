@@ -48,6 +48,7 @@ function preload() {
 	outlineDiv = createElement('div');
 	outlineDiv.addClass('outlineBox');
 	outlineDiv.parent(container);
+	outlineDiv.mousePressed(hideHelpBoxes);
 	
 	titlesDiv = createElement('div');
 	titlesDiv.addClass('titles');
@@ -479,6 +480,9 @@ function ratioForPitch(num) {
 }
 
 function keyPressed() {
+
+	hideHelpBoxes();
+
 	for (var i = 0; i < numKeyObjects; i++) {
 		if (key == keyObjects[i].keyName || keyCode == keyObjects[i].keyName) {
 			if (!keyObjects[i].isPressed) {
