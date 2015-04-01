@@ -291,3 +291,15 @@ input[type=radio] {
   font-size: 14px;
   color: #595656;
 }
+
+.credits {
+  padding: 5;
+  padding-top: 50;
+  font-size: 13px;
+  color: gray;
+  height: 10px;
+}
+
+a {
+	text-decoration:none;
+}

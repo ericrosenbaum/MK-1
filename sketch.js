@@ -136,6 +136,16 @@ function preload() {
 	createPlayHeads();
 
 	initSampler();
+	
+	credits = createElement('div');
+	credits.addClass('credits');
+	credits.parent(container);
+	creditsHTML = "created by <a href=http://ericrosenbaum.com target=_blank>Eric Rosenbaum</a><br>";
+	creditsHTML += "for use with <a href=http://makeymakey.com target=_blank>Makey Makey</a><br>";
+	creditsHTML += "inspired by the <a href=http://en.wikipedia.org/wiki/Casio_SK-1 target=_blank>Casio SK-1</a><br>";
+	creditsHTML += "built with <a href=http://p5js.org target=_blank>p5.js</a><br>";
+	creditsHTML += "source code on <a href=https://github.com/ericrosenbaum/MK-1 target=_blank>github</a><br>";
+	credits.html(creditsHTML);
 }
 
 // create empty soundFiles objects that will be filled with a buffer later
