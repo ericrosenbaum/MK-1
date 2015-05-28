@@ -331,7 +331,7 @@ function setup() {
 
 function startNote(num, pitch) {
 	audioSamples[num].loop(0, ratioForPitch(pitch), 1.0, startTimeSec, recordingDuration);
-	audioSamples[num].setVolume(1);
+	audioSamples[num].setVolume(1, 0.0001);
 	playHeads[num].startTime = millis() / 1000;
 }
 
@@ -524,7 +524,7 @@ function keyPressed() {
 function keyReleased() {
 	for (var i = 0; i < keyObjects.length; i++) {
 		if (key == keyObjects[i].keyName || keyCode == keyObjects[i].keyName) {
-			decayTime = 0.5 / keyObjects[i].rate;
+			decayTime = 0.2 / keyObjects[i].rate;
 			audioSamples[i].setVolume(0, decayTime);
 			audioSamples[i].stop(decayTime);
 			keyObjects[i].isPressed = false;
