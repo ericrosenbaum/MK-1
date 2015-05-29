@@ -489,12 +489,13 @@ function ratioForPitch(num) {
 	return (midiToFreq(num) / midiToFreq(60));
 }
 
-function keyPressed() {
+function keyPressed(ev) {
 
 	hideHelpBoxes();
 
 	for (var i = 0; i < numKeyObjects; i++) {
 		if (key == keyObjects[i].keyName || keyCode == keyObjects[i].keyName) {
+			ev.preventDefault();
 			if (!keyObjects[i].isPressed) {
   				startNote(i, keyObjects[i].pitch);
   				keyObjects[i].isPressed = true;
