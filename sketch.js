@@ -371,7 +371,7 @@ function draw() {
 
 		// need to set width of each rect using calculated times?
 		//rect(0,0,barLength,waveBox.h);
-		barHeight = map(level, 0, 1, 0, waveBox.h);
+		barHeight = map(level, 0, 1, 1, waveBox.h);
 		rect(barLength-5,waveBox.h/2, 8, barHeight);
 		rect(barLength-5,waveBox.h/2, 8,-1*barHeight);
 	}
