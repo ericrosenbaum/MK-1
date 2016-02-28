@@ -253,7 +253,7 @@ function createPlayHeads() {
 		playHeads[i] = createElement('div');
 		playHeads[i].addClass('playHead');
 		c = keyObjects[i].color;
-		playHeads[i].style('background',c.colorString);
+		playHeads[i].style('background',c.toString());
 		playHeads[i].parent(waveFormDiv);
 	}
 }
@@ -286,7 +286,7 @@ function createPianoElements() {
 function pianoKeyEltPressed(num) {
 	mouseIsPressedOnPianoKeyNum = num;
 	startNote(0, num+48);
-	setPianoKeyState(num, true, keyObjects[0].color.colorString);
+	setPianoKeyState(num, true, keyObjects[0].color.toString());
 }
 function pianoKeyEltReleased(num) {
 	mouseIsPressedOnPianoKeyNum = -1;
@@ -298,7 +298,7 @@ function pianoKeyEltReleased(num) {
 
 function setPianoLabels() {
 	
-	labels = getElements('keyLabel');
+	labels = selectAll('.keyLabel');
 	for (var i=0; i<labels.length; i++) {
 		labels[i].remove();
 	}
@@ -346,13 +346,13 @@ function draw() {
 			position = (timeSinceStart % scaledDuration) * keyObjects[i].rate;
 			normalizedPosition = position / audioSamples[i].duration();
 			xPos = (normalizedPosition * numPeaks) + startTimePx;
-			playHeads[i].style('left', xPos);
+			playHeads[i].style('left', xPos.toString());
 			playHeads[i].style('visibility', 'visible');
-			level = audioSamples[i].getLevel(0.5);
-			level = map(level,0,1,1,20);
-			playHeads[i].style('width',level);
+			// level = audioSamples[i].getLevel(0.5);
+			// level = map(level,0,1,1,20);
+			// playHeads[i].style('width',level.toString());
 		} else {
-			playHeads[i].style('left', 0);
+			playHeads[i].style('left', '0');
 			playHeads[i].style('visibility', 'hidden');
 		}
 	}
@@ -500,7 +500,7 @@ function keyPressed(ev) {
   				startNote(i, keyObjects[i].pitch);
   				keyObjects[i].isPressed = true;
  				pianoKeyNum = keyObjects[i].pianoKeyNum;
- 				setPianoKeyState(pianoKeyNum, true, keyObjects[i].color.colorString);
+ 				setPianoKeyState(pianoKeyNum, true, keyObjects[i].color.toString());
   			}
 		}
 	}
