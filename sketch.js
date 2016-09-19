@@ -330,7 +330,9 @@ function setup() {
 }
 
 function startNote(num, pitch) {
-	audioSamples[num].loop(0, ratioForPitch(pitch), 1.0, startTimeSec, recordingDuration);
+	// audioSamples[num].loop(0, ratioForPitch(pitch), 1.0, startTimeSec, recordingDuration);
+	audioSamples[num].loop(0, 1.0, 1.0, startTimeSec, recordingDuration);
+	audioSamples[num].rate(ratioForPitch(pitch));
 	audioSamples[num].setVolume(1, 0.0001);
 	playHeads[num].startTime = millis() / 1000;
 }
